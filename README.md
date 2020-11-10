@@ -67,11 +67,12 @@ https://wireframe.cc/ux3pX0
 2. Little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
 
 - **Goals**: 
-11/10: Complete base index and CSS
-11/12: Complete JS code and MVP functionality
-11/13: Add graph display
-11/16: Add trivia question and deploy app
-11/17: Present app
+|**Date**|**Goal**|
+|11/10: |Complete base index and CSS|
+|11/12: |Complete JS code and MVP functionality|
+|11/13: |Add graph display|
+|11/16: |Add trivia question and deploy app|
+|11/17: |Present app|
 
 - **Priority Matrix**: 
 ![alt text](https://github.com/jpacheco008/Currency-Exchanger-/blob/main/Priority%20Matrix.png)
