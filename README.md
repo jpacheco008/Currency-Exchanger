@@ -74,7 +74,7 @@ https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/
 
 - **Timeframes**: 
 | **Objectives**            |**Hrs EST**| **Date**   
-|:---:|:---      :|:---       :|
+|---|---|---|
 | Project Pitch             | 1hr       | 11/10/2020 |
 | Index base code           | 3hrs      | 11/10/2020 |
 | CSS.  base code           | 4hrs      | 11/10/2020 |
