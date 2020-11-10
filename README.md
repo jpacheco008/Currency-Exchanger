@@ -64,8 +64,8 @@ https://wireframe.cc/ux3pX0
 2. Accurate exchange rate displayed in respect with the daily exchange rate
 
 - **Post-MVP**: 
-1. Use historical data to graph fluxations in the exchange rate
-2. little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
+  *Use historical data to graph fluxations in the exchange rate
+  *little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
 
 - **Goals**: 
 11/10: Complete base index and CSS
