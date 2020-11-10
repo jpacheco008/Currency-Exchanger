@@ -11,7 +11,8 @@
 - **App Description**: The app will take a type of currency and quantity and convert it to another designated currency type with the current exchange rate.
 - **API**: https://www.frankfurter.app/docs/#deployment
 - **API Snippet**: 
-{
+
+```{
     "amount": 1,
     "base": "USD",
     "date": "2020-11-09",
@@ -50,9 +51,9 @@
         "ZAR": 15.2575
     }
 }
-
+```
 - **Wireframes**:  
-https://wireframe.cc/ux3pX0
+![alt text](https://wireframe.cc/ux3pX0)
 
 - **MVP**: 
 *Functioning drop down list of the currencies avialable 
@@ -70,7 +71,7 @@ https://wireframe.cc/ux3pX0
 11/17: Present app
 
 - **Priority Matrix**: 
-https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/edit?usp=sharing
+![alt text](https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/edit?usp=sharing)
 
 - **Timeframes**: 
 
