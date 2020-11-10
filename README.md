@@ -59,12 +59,12 @@ https://www.frankfurter.app/docs/#deployment
 https://wireframe.cc/ux3pX0
 
 - **MVP**: 
-*Functioning drop down list of the currencies avialable 
-*accurate exchange rate displayed in respect with the daily exchange rate
+..*Functioning drop down list of the currencies avialable 
+..*accurate exchange rate displayed in respect with the daily exchange rate
 
 - **Post-MVP**: 
-*use historical data to graph fluxations in the exchange rate
-*little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
+..*use historical data to graph fluxations in the exchange rate
+..*little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
 
 - **Goals**: 
 11/10: Complete base index and CSS
