@@ -71,7 +71,7 @@ https://wireframe.cc/ux3pX0
 11/17: Present app
 
 - **Priority Matrix**: 
-https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/edit?usp=sharing
+![alt text](https://github.com/jpacheco008/Currency-Exchanger-/blob/main/Priority%20Matrix.png)
 
 - **Timeframes**: 
 
