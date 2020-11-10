@@ -67,6 +67,7 @@ https://wireframe.cc/ux3pX0
 2. Little trivia question asking if the exchange rate is higher or lower in comparrison to another currency type
 
 - **Goals**: 
+
 |**Date**|**Goal**|
 |---|---|
 |11/10: |Complete base index and CSS|
