@@ -68,6 +68,7 @@ https://wireframe.cc/ux3pX0
 
 - **Goals**: 
 |**Date**|**Goal**|
+|---|---|
 |11/10: |Complete base index and CSS|
 |11/12: |Complete JS code and MVP functionality|
 |11/13: |Add graph display|
