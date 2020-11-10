@@ -6,14 +6,17 @@ header {
   height: 200px;
   width: 100%;
   border-radius: 25px;
-  border: 3px solid #2b1870;
+  border: 3px solid #1ba824;
 }
 #title {
   text-align: center;
   padding-top: 50px;
-  color: #000000;
+  color: #1ba824;
+  text-shadow: 2px 2px black;
+  font-size: 50px;
+  font-style: italic;
 }
 .calculator {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 50px;
 }
