@@ -14,7 +14,6 @@ The app will take a type of currency and quantity and convert it to another desi
 - **API**: 
 https://www.frankfurter.app/docs/#deployment
 - **API Snippet**: 
-
 ```{
     "amount": 1,
     "base": "USD",
