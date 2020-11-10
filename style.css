@@ -1,3 +1,19 @@
 body {
-  background-color: blueviolet;
+  font-family: Quicksand, sans-serif;
+}
+header {
+  background: url("./Images/michael-longmire-3Mu0iQgLQto-unsplash.jpg");
+  height: 200px;
+  width: 100%;
+  border-radius: 25px;
+  border: 3px solid #2b1870;
+}
+#title {
+  text-align: center;
+  padding-top: 50px;
+  color: #000000;
+}
+.calculator {
+  text-align: center;
+  padding-top: 20px;
 }
