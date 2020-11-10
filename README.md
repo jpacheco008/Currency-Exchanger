@@ -53,7 +53,7 @@
 }
 ```
 - **Wireframes**:  
-![alt text](https://wireframe.cc/ux3pX0)
+https://wireframe.cc/ux3pX0
 
 - **MVP**: 
 *Functioning drop down list of the currencies avialable 
@@ -71,7 +71,7 @@
 11/17: Present app
 
 - **Priority Matrix**: 
-![alt text](https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/edit?usp=sharing)
+https://docs.google.com/drawings/d/1HvKWbWwRoI6jtLLAI4tgirZxzt4U_2ReiwBWl1X1X_4/edit?usp=sharing
 
 - **Timeframes**: 
 
