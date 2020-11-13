@@ -53,7 +53,7 @@ async function getCountry(country, exchangeCountry) {
         newR = rates[key]
         console.log(newR);
         let money = document.querySelector('input');
-        money.addEventListener('change', (event) => {
+        money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
           console.log(moneyAmnt);
           let newAmount = document.querySelector('#newAmount')
@@ -75,5 +75,43 @@ selectC.addEventListener('change', (event) => {
 
 const selectN = document.querySelector('#newCurrency');
 selectN.addEventListener('change', (event) => {
-  getCountry(mainCountry, event.target.value)
+   getCountry(mainCountry, event.target.value)
 })
+window.onload = function () {
+
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,  
+    title:{
+      text: "Changes in Rates"
+    },
+    axisY: {
+      title: "Rate",
+      valueFormatString: "#,##0.###.",
+      prefix: "$",
+      stripLines: [{
+        value: 500,
+        label: "Average"
+      }]
+    },
+    data: [{
+      yValueFormatString: "#####.##### Units",
+      xValueFormatString: "DD-MMM",
+      type: "spline",
+      dataPoints: [
+        {x: new Date(2020, 10, 7), y: 1250.87},
+        {x: new Date(2020, 10, 8), y: 279},
+        {x: new Date(2020, 10, 9), y: 338},
+        {x: new Date(2020, 10, 10), y: 694},
+        {x: new Date(2020, 10, 11), y: 602},
+        {x: new Date(2020, 10, 12), y: 230},
+        {x: new Date(2020, 10, 13), y: 180},
+      ]
+    }]
+  });
+  chart.render();
+  
+  }
+  // chart.options.title.text = "Chart Title";
+  // chart.options.data = [array];
+  // chart.options.data[0] = {object};
+  // chart.options.data[0].dataPoints = [array];
