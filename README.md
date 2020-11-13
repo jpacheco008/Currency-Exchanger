@@ -83,11 +83,11 @@ https://wireframe.cc/ux3pX0
 
 | **Objectives**            |**Hrs EST**| **Date**|**Actual Hrs**   
 |---|---|---|---|
-| Project Pitch             | 1hr       | 11/10/2020 | 1hr
-| Index base code           | 3hrs      | 11/10/2020 | 3hrs
-| CSS.  base code           | 4hrs      | 11/10/2020 | 1hr
-| CSS.  style               | 3hrs      | 11/10/2020 | 2hrs
-| Implement MVP JS code     | 4hrs      | 11/12/2020 | 8hrs
+| Project Pitch             | 1hr       | 11/10/2020 | 
+| Index base code           | 3hrs      | 11/10/2020 | 
+| CSS.  base code           | 4hrs      | 11/10/2020 | 
+| CSS.  style               | 3hrs      | 11/10/2020 | 
+| Implement MVP JS code     | 4hrs      | 11/12/2020 | 
 | QA.                       | 3hrs      | 11/12/2020 |
 | Research graph displays   | 4hrs      | 11/13/2020 |
 | Add graph to app          | 4hrs      | 11/13/2020 |
