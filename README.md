@@ -89,8 +89,8 @@ https://wireframe.cc/ux3pX0
 | CSS.  style               | 3hrs      | 11/10/2020 | 2hrs
 | Implement MVP JS code     | 4hrs      | 11/12/2020 | 8hrs
 | QA.                       | 3hrs      | 11/12/2020 |
-| Research graph displays   | 4hrs      | 11/13/2020 |
-| Add graph to app          | 4hrs      | 11/13/2020 |
+| Research graph displays   | 4hrs      | 11/13/2020 | 3hrs
+| Add graph to app          | 4hrs      | 11/13/2020 | 4hrs
 | Add trivia question       | 2hrs      | 11/16/2020 |
 | Deploy                    | 2hrs      | 11/16/2020 |
 | Present                   | 1hr       | 11/17/2020 |

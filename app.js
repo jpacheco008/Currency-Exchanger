@@ -9,10 +9,9 @@ const getRates = async () => {
     rates.splice(0,0, 'Choose currency')
     rateValue = response.data.rates
     // console.log(rateValue.AUD);
-    console.log(rates);
+    // console.log(rates);
     currentOptions(rates)
     newOptions(rates)
-    
     // console.log(rateValue.getCountry);
   } catch (error) {
     console.log(error);
@@ -45,13 +44,15 @@ async function getCountry(country, exchangeCountry) {
     const response = await axios.get(url)
     console.log(response);
     let currentCountry = response.data.base
-    console.log(currentCountry);
-    console.log(exchangeCountry);
+    // console.log(currentCountry);
+    // console.log(exchangeCountry);
     let rates = response.data.rates
+    let todayDate = response.data.date
+    console.log(todayDate);
     for (const key in rates) {
       if (key === exchangeCountry) {
         newR = rates[key]
-        console.log(newR);
+        // console.log(newR);
         let money = document.querySelector('input');
         money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
@@ -71,15 +72,36 @@ async function getCountry(country, exchangeCountry) {
 const selectC = document.querySelector('#current-currency');
 selectC.addEventListener('change', (event) => {
   mainCountry = event.target.value
+  // getHistory(mainCountry)
 })
 
 const selectN = document.querySelector('#newCurrency');
 selectN.addEventListener('change', (event) => {
    getCountry(mainCountry, event.target.value)
 })
+
+// let lastWeek = new Date(new Date().getTime()- (3 * 24 * 60 * 60 * 1000)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','')
+// console.log(lastWeek);
+
+let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 4)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-')
+dateArr[2] = dateArr[2].length < 2 ? '0' + dateArr[2] : dateArr[2]
+let lastWeek = dateArr.join('-')
+console.log(dateArr);
+
+async function getHistory(countryChart) {
+  const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
+  try {
+    let response = await axios.get(url)
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
+getHistory('USD')
 window.onload = function () {
 
-  var chart = new CanvasJS.Chart("chartContainer", {
+  let chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,  
     title:{
       text: "Changes in Rates"
