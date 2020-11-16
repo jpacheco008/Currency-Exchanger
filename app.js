@@ -1,4 +1,3 @@
-let rateValue;
 
 const getRates = async () => {
   const url = 'https://api.frankfurter.app/latest'
@@ -8,11 +7,8 @@ const getRates = async () => {
     rates.splice(8, 0, response.data.base)
     rates.splice(0,0, 'Choose currency')
     rateValue = response.data.rates
-    // console.log(rateValue.AUD);
-    // console.log(rates);
     currentOptions(rates)
     newOptions(rates)
-    // console.log(rateValue.getCountry);
   } catch (error) {
     console.log(error);
   }
@@ -42,16 +38,11 @@ async function getCountry(country, exchangeCountry) {
   const url = `https://api.frankfurter.app/latest?from=${country}`
   try {
     const response = await axios.get(url)
-    // console.log(response);
     let currentCountry = response.data.base
-    // console.log(currentCountry);
-    // console.log(exchangeCountry);
     let rates = response.data.rates
-    // console.log(todayDate);
     for (const key in rates) {
       if (key === exchangeCountry) {
         newR = rates[key]
-        // console.log(newR);
         let money = document.querySelector('input');
         money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
@@ -71,7 +62,6 @@ async function getCountry(country, exchangeCountry) {
 const selectC = document.querySelector('#current-currency');
 selectC.addEventListener('change', (event) => {
   mainCountry = event.target.value
-  // getHistory(mainCountry)
 })
 
 const selectN = document.querySelector('#newCurrency');
@@ -85,8 +75,6 @@ let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 7)).toLocaleDat
 dateArr[1] = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
 dateArr[2] = dateArr[2].length < 2 ? '0' + dateArr[2] : dateArr[2]
 let lastWeek = dateArr.join('-')
-// console.log(lastWeek);
-// console.log(dateArr);
 
 let datesForAPI = []
 for (let i = 7; i >= 0 ; i--){
@@ -96,7 +84,6 @@ for (let i = 7; i >= 0 ; i--){
   dates = dateArrN.join('-')
   datesForAPI.push(dates)
 }
-// console.log(datesForAPI);
 
 let datesForChart = []
 for (let i = 7; i >= 0; i--) {
@@ -111,21 +98,19 @@ let rate3
 let rate4 
 let rate5 
 let rate6 
+let rate7
 
-// console.log(datesForChart);
 async function getHistory(countryChart, exVersus) {
   const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
   try {
     let response = await axios.get(url)
-    // console.log(response);
     let chartRates = response.data.rates
-    // console.log(chartRates[datesForAPI[4]]);
     for (const key in chartRates[datesForAPI[0]]) {
       if (key === exVersus) {
         try {
           rate0 = chartRates[datesForAPI[0]][key]
         } catch (error) {
-          return null
+          rate0 = null
         }
         try {
           rate1 = chartRates[datesForAPI[1]][key]
@@ -150,12 +135,17 @@ async function getHistory(countryChart, exVersus) {
         try {
           rate5 = chartRates[dateForChart[5]][key]
         } catch (error) {
-          return null
+          rate5 = null
         }
         try {
           rate6 = chartRates[dateForChart[6]][key]
         } catch (error) {
-          return null
+          rate6 = null
+        }
+        try {
+          rate7 = chartRates[dateForChart[7]][key]
+        } catch (error) {
+          rate7 = null
         }
       }
     }
@@ -165,48 +155,44 @@ async function getHistory(countryChart, exVersus) {
   }
 }
 
-window.onload = function () {
+const renderChart = document.querySelector('#chart');
+renderChart.addEventListener('click', (event) => {
 
-  let chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,  
-    title:{
-      text: "Changes in Rates"
-    },
-    axisY: {
-      title: "Rate",
-      valueFormatString: "#,##0.###.",
-      prefix: "$",
-      stripLines: [{
-        value: (rate0 + rate1 + rate2 + rate3 + rate4 + rate5 + rate6)/5,
-        label: "Average"
+    let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      title: {
+        text: "Changes in Rates"
+      },
+      axisY: {
+        title: "Rate",
+        valueFormatString: "#,##0.###.",
+        prefix: "$",
+        stripLines: [{
+          value: (rate0 + rate1 + rate2 + rate3 + rate4 + rate5 + rate6 + rate7) / 5,
+          label: "Average"
+        }]
+      },
+      data: [{
+        yValueFormatString: "#####.##### Units",
+        xValueFormatString: "DD-MMM",
+        type: "spline",
+        connectNullData:true,
+        nullDataLineDashType: "dot", 
+        dataPoints: [
+          { x: new Date(datesForChart[0]), y: rate0 },
+          { x: new Date(datesForChart[1]), y: rate1 },
+          { x: new Date(datesForChart[2]), y: rate2 },
+          { x: new Date(datesForChart[3]), y: rate3 },
+          { x: new Date(datesForChart[4]), y: rate4 },
+          { x: new Date(datesForChart[5]), y: rate5 },
+          { x: new Date(datesForChart[6]), y: rate6 },
+          { x: new Date(datesForChart[7]), y: rate7 },
+        ]
       }]
-    },
-    data: [{
-      yValueFormatString: "#####.##### Units",
-      xValueFormatString: "DD-MMM",
-      type: "spline",
-      dataPoints: [
-        {x: new Date(datesForChart[0]), y: rate0},
-        {x: new Date(datesForChart[1]), y: rate1},
-        {x: new Date(datesForChart[2]), y: rate2},
-        {x: new Date(datesForChart[3]), y: rate3},
-        {x: new Date(datesForChart[4]), y: rate4},
-        {x: new Date(datesForChart[5]), y: rate5},
-        {x: new Date(datesForChart[6]), y: rate6},
-      ]
-    }]
-  });
-  const renderChart = document.querySelector('#chart');
-  renderChart.addEventListener('click', (event) => {
-  chart.render();
-  // getHistory(mainCountry)
+    });
+ 
+    chart.render();
+    
 })
-  // chart.render(); 
-  // chart.data[0].set("dataPoints", { x: datesForChart[0] })
-}
-
   
-  // chart.options.title.text = "Chart Title";
-  // chart.options.data = [array];
-  // chart.options.data[0] = {object};
-  // chart.options.data[0].dataPoints = [array];
+  
