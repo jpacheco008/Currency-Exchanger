@@ -47,8 +47,7 @@ async function getCountry(country, exchangeCountry) {
     // console.log(currentCountry);
     // console.log(exchangeCountry);
     let rates = response.data.rates
-    let todayDate = response.data.date
-    console.log(todayDate);
+    // console.log(todayDate);
     for (const key in rates) {
       if (key === exchangeCountry) {
         newR = rates[key]
@@ -77,28 +76,82 @@ selectC.addEventListener('change', (event) => {
 
 const selectN = document.querySelector('#newCurrency');
 selectN.addEventListener('change', (event) => {
-   getCountry(mainCountry, event.target.value)
+  getCountry(mainCountry, event.target.value)
+  getHistory(mainCountry, event.target.value)
 })
 
-// let lastWeek = new Date(new Date().getTime()- (3 * 24 * 60 * 60 * 1000)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','')
-// console.log(lastWeek);
 
-let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 4)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-')
+let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 7)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-')
+dateArr[1] = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
 dateArr[2] = dateArr[2].length < 2 ? '0' + dateArr[2] : dateArr[2]
 let lastWeek = dateArr.join('-')
-console.log(dateArr);
+// console.log(lastWeek);
+// console.log(dateArr);
 
-async function getHistory(countryChart) {
+let datesForAPI = []
+for (let i = 7; i >= 0 ; i--){
+  let dateArrN = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-');
+  dateArrN[1] = dateArrN[1].length < 2 ? '0' + dateArrN[1] : dateArrN[1]
+  dateArrN[2] = dateArrN[2].length < 2 ? '0' + dateArrN[2] : dateArrN[2]
+  dates = dateArrN.join('-')
+  datesForAPI.push(dates)
+}
+console.log(datesForAPI);
+
+let datesForChart = []
+for (let i = 7; i >= 0; i--) {
+  let dateArrC = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ',',').replace('. ',',').replace('.',',').split('-');
+  dates = dateArrC.join(',')
+  datesForChart.push(dates)
+}
+let rate0
+let rate1 
+let rate2
+let rate3 
+let rate4 
+// let rate5 
+// let rate6 
+// let rate7 
+console.log(datesForChart);
+async function getHistory(countryChart, exVersus) {
   const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
   try {
     let response = await axios.get(url)
     console.log(response);
+    let chartRates = response.data.rates
+    console.log(chartRates[datesForAPI[4]]);
+    for (const key in chartRates[datesForAPI[0]]) {
+      if (key === exVersus) {
+        rate0 = chartRates[datesForAPI[0]][key]
+        rate1 = chartRates[datesForAPI[1]][key]
+        rate2 = chartRates[datesForAPI[2]][key]
+        rate3 = chartRates[datesForAPI[3]][key]
+        rate4 = chartRates[datesForAPI[4]][key]
+        // rate5 = chartRates[dateForChart[5]][key]
+        // rate6 = chartRates[dateForChart[6]][key]
+        // rate7 = chartRates[dateForChart[7]][key]
+      }
+    }
+    console.log(rate0);
+    console.log(rate1);
+    console.log(rate2);
+    console.log(rate3);
+    console.log(rate4);
+    // console.log(rate5);
+    // console.log(rate6);
+    // console.log(rate7);
+    
   } catch (error) {
     console.log(error);
   }
   
 }
-getHistory('USD')
+    console.log(rate0);
+    console.log(rate1);
+    console.log(rate2);
+    console.log(rate3);
+    console.log(rate4);
+// getHistory('USD')
 window.onload = function () {
 
   let chart = new CanvasJS.Chart("chartContainer", {
@@ -120,13 +173,13 @@ window.onload = function () {
       xValueFormatString: "DD-MMM",
       type: "spline",
       dataPoints: [
-        {x: new Date(2020, 10, 7), y: 1250.87},
-        {x: new Date(2020, 10, 8), y: 279},
-        {x: new Date(2020, 10, 9), y: 338},
-        {x: new Date(2020, 10, 10), y: 694},
-        {x: new Date(2020, 10, 11), y: 602},
-        {x: new Date(2020, 10, 12), y: 230},
-        {x: new Date(2020, 10, 13), y: 180},
+        {x: new Date(2020, 11,07), y: 1250.87},
+        {x: new Date(2020, 11, 8), y: 279},
+        {x: new Date(2020, 11, 9), y: 338},
+        {x: new Date(2020, 11, 10), y: 694},
+        {x: new Date(2020, 11, 11), y: 602},
+        {x: new Date(2020, 11, 12), y: 230},
+        {x: new Date(2020, 11, 13), y: 180},
       ]
     }]
   });
