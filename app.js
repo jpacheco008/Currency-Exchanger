@@ -42,7 +42,7 @@ async function getCountry(country, exchangeCountry) {
   const url = `https://api.frankfurter.app/latest?from=${country}`
   try {
     const response = await axios.get(url)
-    console.log(response);
+    // console.log(response);
     let currentCountry = response.data.base
     // console.log(currentCountry);
     // console.log(exchangeCountry);
@@ -96,11 +96,11 @@ for (let i = 7; i >= 0 ; i--){
   dates = dateArrN.join('-')
   datesForAPI.push(dates)
 }
-console.log(datesForAPI);
+// console.log(datesForAPI);
 
 let datesForChart = []
 for (let i = 7; i >= 0; i--) {
-  let dateArrC = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ',',').replace('. ',',').replace('.',',').split('-');
+  let dateArrC = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ',',').replace('. ',',').replace('.','').split('-');
   dates = dateArrC.join(',')
   datesForChart.push(dates)
 }
@@ -109,49 +109,62 @@ let rate1
 let rate2
 let rate3 
 let rate4 
-// let rate5 
-// let rate6 
-// let rate7 
-console.log(datesForChart);
+let rate5 
+let rate6 
+
+// console.log(datesForChart);
 async function getHistory(countryChart, exVersus) {
   const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
   try {
     let response = await axios.get(url)
-    console.log(response);
+    // console.log(response);
     let chartRates = response.data.rates
-    console.log(chartRates[datesForAPI[4]]);
+    // console.log(chartRates[datesForAPI[4]]);
     for (const key in chartRates[datesForAPI[0]]) {
       if (key === exVersus) {
-        rate0 = chartRates[datesForAPI[0]][key]
-        rate1 = chartRates[datesForAPI[1]][key]
-        rate2 = chartRates[datesForAPI[2]][key]
-        rate3 = chartRates[datesForAPI[3]][key]
-        rate4 = chartRates[datesForAPI[4]][key]
-        // rate5 = chartRates[dateForChart[5]][key]
-        // rate6 = chartRates[dateForChart[6]][key]
-        // rate7 = chartRates[dateForChart[7]][key]
+        try {
+          rate0 = chartRates[datesForAPI[0]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate1 = chartRates[datesForAPI[1]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate2 = chartRates[datesForAPI[2]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate3 = chartRates[datesForAPI[3]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate4 = chartRates[datesForAPI[4]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate5 = chartRates[dateForChart[5]][key]
+        } catch (error) {
+          return null
+        }
+        try {
+          rate6 = chartRates[dateForChart[6]][key]
+        } catch (error) {
+          return null
+        }
       }
     }
-    console.log(rate0);
-    console.log(rate1);
-    console.log(rate2);
-    console.log(rate3);
-    console.log(rate4);
-    // console.log(rate5);
-    // console.log(rate6);
-    // console.log(rate7);
     
   } catch (error) {
     console.log(error);
   }
-  
 }
-    console.log(rate0);
-    console.log(rate1);
-    console.log(rate2);
-    console.log(rate3);
-    console.log(rate4);
-// getHistory('USD')
+
 window.onload = function () {
 
   let chart = new CanvasJS.Chart("chartContainer", {
@@ -164,7 +177,7 @@ window.onload = function () {
       valueFormatString: "#,##0.###.",
       prefix: "$",
       stripLines: [{
-        value: 500,
+        value: (rate0 + rate1 + rate2 + rate3 + rate4 + rate5 + rate6)/5,
         label: "Average"
       }]
     },
@@ -173,19 +186,26 @@ window.onload = function () {
       xValueFormatString: "DD-MMM",
       type: "spline",
       dataPoints: [
-        {x: new Date(2020, 11,07), y: 1250.87},
-        {x: new Date(2020, 11, 8), y: 279},
-        {x: new Date(2020, 11, 9), y: 338},
-        {x: new Date(2020, 11, 10), y: 694},
-        {x: new Date(2020, 11, 11), y: 602},
-        {x: new Date(2020, 11, 12), y: 230},
-        {x: new Date(2020, 11, 13), y: 180},
+        {x: new Date(datesForChart[0]), y: rate0},
+        {x: new Date(datesForChart[1]), y: rate1},
+        {x: new Date(datesForChart[2]), y: rate2},
+        {x: new Date(datesForChart[3]), y: rate3},
+        {x: new Date(datesForChart[4]), y: rate4},
+        {x: new Date(datesForChart[5]), y: rate5},
+        {x: new Date(datesForChart[6]), y: rate6},
       ]
     }]
   });
+  const renderChart = document.querySelector('#chart');
+  renderChart.addEventListener('click', (event) => {
   chart.render();
+  // getHistory(mainCountry)
+})
+  // chart.render(); 
+  // chart.data[0].set("dataPoints", { x: datesForChart[0] })
+}
+
   
-  }
   // chart.options.title.text = "Chart Title";
   // chart.options.data = [array];
   // chart.options.data[0] = {object};
