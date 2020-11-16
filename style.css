@@ -18,6 +18,24 @@ header {
   font-style: italic;
 }
 .calculator {
+  /* display: flex; */
+  /* flex-flow: column wrap; */
+  /* justify-content: center; */
   text-align: center;
-  padding-top: 50px;
+  padding-top: 20px;
+}
+.canvas {
+  text-align: center;
+}
+p {
+  text-align: center;
+}
+#chart {
+  margin: 15px;
+}
+@media (max-width: 580px){
+  .calculator{
+    display: flex;
+    flex-direction: column;
+  }
 }

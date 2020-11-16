@@ -3,6 +3,7 @@ const getRates = async () => {
   const url = 'https://api.frankfurter.app/latest'
   try {
     const response = await axios.get(url)
+    console.log(response);
     const rates = Object.keys(response.data.rates)
     rates.splice(8, 0, response.data.base)
     rates.splice(0,0, 'Choose currency')
@@ -46,7 +47,6 @@ async function getCountry(country, exchangeCountry) {
         let money = document.querySelector('input');
         money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
-          console.log(moneyAmnt);
           let newAmount = document.querySelector('#newAmount')
           newAmount.value = `${moneyAmnt * newR}`
           newAmount.textContent = `${moneyAmnt * newR}`
@@ -190,9 +190,7 @@ renderChart.addEventListener('click', (event) => {
         ]
       }]
     });
- 
     chart.render();
-    
 })
   
   
