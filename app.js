@@ -46,8 +46,9 @@ async function getCountry(country, exchangeCountry) { //second API call to get t
         money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
           let newAmount = document.querySelector('#newAmount')
-          newAmount.value = `${moneyAmnt * newR}` //currency calculation
-          newAmount.textContent = `${moneyAmnt * newR}`
+          let moneyFormat = new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD',minimumFractionDigits: 2 });
+          newAmount.value = moneyFormat.format(`${moneyAmnt * newR}`) //currency calculation
+          newAmount.textContent = moneyFormat.format(`${moneyAmnt * newR}`)
         })
       }
     }
@@ -70,10 +71,10 @@ selectN.addEventListener('change', (event) => {
 let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 7)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-')
 dateArr[1] = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
 dateArr[2] = dateArr[2].length < 2 ? '0' + dateArr[2] : dateArr[2]
-let lastWeek = dateArr.join('-')
+let lastWeek = dateArr.join('-') //this give us a date in the Korean format using the clock from inside VS code
 
 let datesForAPI = []
-for (let i = 7; i >= 0 ; i--){
+for (let i = 7; i >= 0 ; i--){ //this formats the date in a way the the API could read it
   let dateArrN = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-');
   dateArrN[1] = dateArrN[1].length < 2 ? '0' + dateArrN[1] : dateArrN[1]
   dateArrN[2] = dateArrN[2].length < 2 ? '0' + dateArrN[2] : dateArrN[2]
@@ -82,22 +83,22 @@ for (let i = 7; i >= 0 ; i--){
 }
 
 let datesForChart = []
-for (let i = 7; i >= 0; i--) {
+for (let i = 7; i >= 0; i--) {//this formats the date in a way the the chart could read it
   let dateArrC = new Date(new Date().getTime() - (60000 * 60 * 24 * i)).toLocaleDateString('ko-KR').replace('. ',',').replace('. ',',').replace('.','').split('-');
   dates = dateArrC.join(',')
   datesForChart.push(dates)
 }
 
-let rate = []
+let rate = [] //colects the rates to be used in the chart
 async function getHistory(countryChart, exVersus) {
   const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
   try {
     let response = await axios.get(url)
     let chartRates = response.data.rates
     for (const key in chartRates[datesForAPI[0]]) {
-      if (key === exVersus) {
+      if (key === exVersus) { 
         for (let i = 0; i <= 7 ; i++) {
-          if (chartRates[datesForAPI[i]]) {
+          if (chartRates[datesForAPI[i]]) { //checks if there is data for this date
             rate.push(chartRates[datesForAPI[i]][key])
           } else {
             rate.push(null)
@@ -105,7 +106,6 @@ async function getHistory(countryChart, exVersus) {
         }
       }
     }
-    console.log(rate);
   } catch (error) {
     console.log(error);
   }
