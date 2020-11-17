@@ -3,20 +3,19 @@ const getRates = async () => {
   const url = 'https://api.frankfurter.app/latest'
   try {
     const response = await axios.get(url)
-    console.log(response);
     const rates = Object.keys(response.data.rates)
     rates.splice(8, 0, response.data.base)
     rates.splice(0,0, 'Choose currency')
     rateValue = response.data.rates
-    currentOptions(rates)
-    newOptions(rates)
+    currentOptions(rates) //sets values for the dropdown values
+    newOptions(rates) //sets values for the dropdown values
   } catch (error) {
     console.log(error);
   }
 }
 getRates()
 
-function currentOptions(list) {
+function currentOptions(list) { //creates the element of the dropdown
   const currentC = document.querySelector('#current-currency')
   return list.forEach(currency => {
     const option = document.createElement('option')
@@ -25,7 +24,7 @@ function currentOptions(list) {
     currentC.append(option)
   });
 }
-function newOptions(list) {
+function newOptions(list) { //creates the element of the second dropdown
   const newC = document.querySelector('#newCurrency')
   return list.forEach(currency => {
     const optionNew = document.createElement('option')
@@ -35,22 +34,20 @@ function newOptions(list) {
   });
 }
 let mainCountry = ''
-async function getCountry(country, exchangeCountry) {
+async function getCountry(country, exchangeCountry) { //second API call to get the 
   const url = `https://api.frankfurter.app/latest?from=${country}`
   try {
     const response = await axios.get(url)
-    let currentCountry = response.data.base
-    let rates = response.data.rates
-    for (const key in rates) {
-      if (key === exchangeCountry) {
+    let rates = response.data.rates 
+    for (const key in rates) { 
+      if (key === exchangeCountry) { //grab rate from the second picked country
         newR = rates[key]
         let money = document.querySelector('input');
         money.addEventListener('keyup', (event) => {
           let moneyAmnt = document.querySelector('input').value
           let newAmount = document.querySelector('#newAmount')
-          newAmount.value = `${moneyAmnt * newR}`
+          newAmount.value = `${moneyAmnt * newR}` //currency calculation
           newAmount.textContent = `${moneyAmnt * newR}`
-          console.log(newAmount);
         })
       }
     }
@@ -59,17 +56,16 @@ async function getCountry(country, exchangeCountry) {
   }
 }
 
-const selectC = document.querySelector('#current-currency');
+const selectC = document.querySelector('#current-currency'); //gets value from first drop down selection
 selectC.addEventListener('change', (event) => {
   mainCountry = event.target.value
 })
 
-const selectN = document.querySelector('#newCurrency');
+const selectN = document.querySelector('#newCurrency'); //gets value from second drop down selection and starts the function 
 selectN.addEventListener('change', (event) => {
   getCountry(mainCountry, event.target.value)
   getHistory(mainCountry, event.target.value)
 })
-
 
 let dateArr = new Date(new Date().getTime() - (60000 * 60 * 24 * 7)).toLocaleDateString('ko-KR').replace('. ','-').replace('. ','-').replace('.','').split('-')
 dateArr[1] = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
@@ -91,15 +87,8 @@ for (let i = 7; i >= 0; i--) {
   dates = dateArrC.join(',')
   datesForChart.push(dates)
 }
-let rate0
-let rate1 
-let rate2
-let rate3 
-let rate4 
-let rate5 
-let rate6 
-let rate7
 
+let rate = []
 async function getHistory(countryChart, exVersus) {
   const url = `https://api.frankfurter.app/${lastWeek}..?from=${countryChart}`
   try {
@@ -107,49 +96,16 @@ async function getHistory(countryChart, exVersus) {
     let chartRates = response.data.rates
     for (const key in chartRates[datesForAPI[0]]) {
       if (key === exVersus) {
-        try {
-          rate0 = chartRates[datesForAPI[0]][key]
-        } catch (error) {
-          rate0 = null
-        }
-        try {
-          rate1 = chartRates[datesForAPI[1]][key]
-        } catch (error) {
-          return null
-        }
-        try {
-          rate2 = chartRates[datesForAPI[2]][key]
-        } catch (error) {
-          return null
-        }
-        try {
-          rate3 = chartRates[datesForAPI[3]][key]
-        } catch (error) {
-          return null
-        }
-        try {
-          rate4 = chartRates[datesForAPI[4]][key]
-        } catch (error) {
-          return null
-        }
-        try {
-          rate5 = chartRates[dateForChart[5]][key]
-        } catch (error) {
-          rate5 = null
-        }
-        try {
-          rate6 = chartRates[dateForChart[6]][key]
-        } catch (error) {
-          rate6 = null
-        }
-        try {
-          rate7 = chartRates[dateForChart[7]][key]
-        } catch (error) {
-          rate7 = null
+        for (let i = 0; i <= 7 ; i++) {
+          if (chartRates[datesForAPI[i]]) {
+            rate.push(chartRates[datesForAPI[i]][key])
+          } else {
+            rate.push(null)
+          }
         }
       }
     }
-    
+    console.log(rate);
   } catch (error) {
     console.log(error);
   }
@@ -168,7 +124,7 @@ renderChart.addEventListener('click', (event) => {
         valueFormatString: "#,##0.###.",
         prefix: "$",
         stripLines: [{
-          value: (rate0 + rate1 + rate2 + rate3 + rate4 + rate5 + rate6 + rate7) / 5,
+          value: (rate[0] + rate[1] + rate[2] + rate[3] + rate[4] + rate[5] + rate[6] + rate[7]) / 5,
           label: "Average"
         }]
       },
@@ -179,14 +135,14 @@ renderChart.addEventListener('click', (event) => {
         connectNullData:true,
         nullDataLineDashType: "dot", 
         dataPoints: [
-          { x: new Date(datesForChart[0]), y: rate0 },
-          { x: new Date(datesForChart[1]), y: rate1 },
-          { x: new Date(datesForChart[2]), y: rate2 },
-          { x: new Date(datesForChart[3]), y: rate3 },
-          { x: new Date(datesForChart[4]), y: rate4 },
-          { x: new Date(datesForChart[5]), y: rate5 },
-          { x: new Date(datesForChart[6]), y: rate6 },
-          { x: new Date(datesForChart[7]), y: rate7 },
+          { x: new Date(datesForChart[0]), y: rate[0] },
+          { x: new Date(datesForChart[1]), y: rate[1] },
+          { x: new Date(datesForChart[2]), y: rate[2] },
+          { x: new Date(datesForChart[3]), y: rate[3] },
+          { x: new Date(datesForChart[4]), y: rate[4] },
+          { x: new Date(datesForChart[5]), y: rate[5] },
+          { x: new Date(datesForChart[6]), y: rate[6] },
+          { x: new Date(datesForChart[7]), y: rate[7] },
         ]
       }]
     });
